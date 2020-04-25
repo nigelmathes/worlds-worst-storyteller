@@ -1,0 +1,24 @@
+service: worlds-worst-storyteller
+
+provider:
+  name: aws
+  runtime: python3.7
+
+functions:
+  storyteller:
+    handler: storyteller.tell_story
+    layers:
+      - arn:aws:lambda:us-east-1:934676248949:layer:pytorchv1-py36:2
+
+plugins:
+  - serverless-python-requirements
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    zip: true
+    slim: true
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
